@@ -1,0 +1,593 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.975 0.01 85);
+  --foreground: oklch(0.2 0.015 60);
+  --card: oklch(0.99 0.006 85);
+  --card-foreground: oklch(0.2 0.015 60);
+  --popover: oklch(0.99 0.006 85);
+  --popover-foreground: oklch(0.2 0.015 60);
+  --primary: oklch(0.52 0.16 35);
+  --primary-foreground: oklch(0.98 0.01 85);
+  --secondary: oklch(0.94 0.015 85);
+  --secondary-foreground: oklch(0.2 0.015 60);
+  --muted: oklch(0.94 0.015 85);
+  --muted-foreground: oklch(0.5 0.02 60);
+  --accent: oklch(0.93 0.03 70);
+  --accent-foreground: oklch(0.2 0.015 60);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.87 0.015 80);
+  --input: oklch(0.8 0.02 80);
+  --ring: oklch(0.52 0.16 35);
+  --chart-1: oklch(0.52 0.16 35);
+  --chart-2: oklch(0.55 0.1 160);
+  --chart-3: oklch(0.45 0.1 250);
+  --chart-4: oklch(0.7 0.13 80);
+  --chart-5: oklch(0.5 0.12 320);
+  --sidebar: oklch(0.955 0.014 85);
+  --sidebar-foreground: oklch(0.2 0.015 60);
+  --sidebar-primary: oklch(0.52 0.16 35);
+  --sidebar-primary-foreground: oklch(0.98 0.01 85);
+  --sidebar-accent: oklch(0.92 0.02 80);
+  --sidebar-accent-foreground: oklch(0.2 0.015 60);
+  --sidebar-border: oklch(0.87 0.015 80);
+  --sidebar-ring: oklch(0.52 0.16 35);
+  --graph-edge: oklch(0.56 0.025 65);
+  --graph-edge-strong: oklch(0.38 0.04 50);
+  --graph-edge-positive: oklch(0.5 0.13 155);
+  --graph-edge-warning: oklch(0.58 0.15 45);
+  --graph-node-shadow: 0 8px 24px oklch(0.2 0.02 60 / 0.1);
+  --graph-minimap-mask: oklch(0.94 0.015 85 / 0.72);
+}
+
+@theme {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  border-left: 2px solid transparent;
+  &:hover { background: var(--sidebar-accent); }
+  &[data-status="active"] {
+    border-left-color: var(--primary);
+    background: var(--sidebar-accent);
+    font-weight: 500;
+  }
+}
+
+@utility layer-dot {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: var(--layer-color, var(--foreground));
+}
+
+@utility graph-paper {
+  background-color: var(--card);
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.layer-application { --layer-color: var(--chart-1); }
+.layer-api { --layer-color: oklch(0.62 0.14 60); }
+.layer-data { --layer-color: var(--chart-2); }
+.layer-caching { --layer-color: oklch(0.6 0.1 200); }
+.layer-runtime { --layer-color: var(--chart-3); }
+.layer-network { --layer-color: var(--chart-4); }
+.layer-os { --layer-color: var(--chart-5); }
+.layer-distributed { --layer-color: oklch(0.35 0.03 60); }
+.node { fill: var(--layer-color); stroke: var(--card); stroke-width: 3; transition: r 0.15s; }
+.node-active { stroke: var(--foreground); stroke-width: 2; }
+
+.layer-node { background-color: var(--layer-color, var(--foreground)); }
+
+.atlas-flow {
+  position: absolute !important;
+  inset: 0;
+  background-color: var(--background);
+}
+
+.atlas-background circle { fill: var(--border); }
+
+.atlas-node {
+  display: grid;
+  grid-template-columns: 0.55rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.65rem;
+  width: 11rem;
+  min-height: 3.5rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--layer-color);
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--card) 96%, var(--layer-color));
+  color: var(--foreground);
+  padding: 0.65rem 0.75rem;
+  box-shadow: var(--graph-node-shadow);
+  transition: opacity 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.atlas-node:hover {
+  border-color: var(--layer-color);
+  transform: translateY(-1px);
+}
+
+.atlas-node-focused {
+  border-color: var(--layer-color);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--layer-color) 30%, transparent), var(--graph-node-shadow);
+}
+
+.atlas-node-near { opacity: 1; }
+.atlas-node-far { opacity: 0.82; }
+.atlas-node-dimmed { opacity: 0.34; }
+.atlas-node-dot { width: 0.55rem; height: 0.55rem; border-radius: 9999px; background: var(--layer-color); }
+.atlas-handle { width: 0.38rem; height: 0.38rem; border: 0; background: var(--layer-color); opacity: 0; }
+.atlas-node:hover .atlas-handle, .atlas-node-focused .atlas-handle { opacity: 1; }
+
+.graph-edge path { stroke: var(--graph-edge); stroke-width: 1.15; transition: stroke 160ms ease, opacity 160ms ease; }
+.graph-edge marker path { fill: var(--graph-edge); }
+.graph-edge-highlighted path { stroke: var(--graph-edge-strong); stroke-width: 1.8; }
+.graph-edge-highlighted marker path { fill: var(--graph-edge-strong); }
+.graph-edge-inspected path { stroke: var(--primary); stroke-width: 2.4; }
+.graph-edge-inspected marker path { fill: var(--primary); }
+.graph-edge-mitigates path { stroke: var(--graph-edge-positive); }
+.graph-edge-amplifies path, .graph-edge-causes path { stroke: var(--graph-edge-warning); }
+.react-flow__edge-text { fill: var(--muted-foreground); font-family: var(--font-mono); font-size: 8px; }
+.react-flow__edge-textbg { fill: var(--background); fill-opacity: 0.9; }
+.react-flow__controls { overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--graph-node-shadow); }
+.react-flow__controls-button { border-color: var(--border); background: var(--card); color: var(--foreground); }
+.react-flow__controls-button:hover { background: var(--accent); }
+.react-flow__controls-button svg { fill: currentColor; }
+.atlas-minimap { border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+.minimap-node { fill: var(--layer-color, var(--muted-foreground)); }
+
+.dark {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --graph-edge: oklch(0.58 0.035 255);
+  --graph-edge-strong: oklch(0.82 0.04 250);
+  --graph-edge-positive: oklch(0.7 0.14 160);
+  --graph-edge-warning: oklch(0.72 0.14 55);
+  --graph-node-shadow: 0 10px 28px oklch(0.04 0.02 260 / 0.28);
+  --graph-minimap-mask: oklch(0.13 0.04 265 / 0.72);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atlas-node { transition: none; }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
+
+.atlas-canvas {
+  height: calc(100vh - 8.25rem);
+  min-height: 28rem;
+}
+
+/* ---------------------------------------------------------------- evidence */
+
+.kind-metric { --kind-color: oklch(0.52 0.16 35); }
+.kind-trace { --kind-color: oklch(0.45 0.1 250); }
+.kind-log { --kind-color: oklch(0.42 0.03 60); }
+.kind-query_plan { --kind-color: oklch(0.48 0.1 160); }
+.kind-profile { --kind-color: oklch(0.5 0.12 320); }
+.kind-os_counter { --kind-color: oklch(0.5 0.08 200); }
+.kind-packet { --kind-color: oklch(0.56 0.12 80); }
+
+.dark .kind-metric { --kind-color: oklch(0.75 0.13 45); }
+.dark .kind-trace { --kind-color: oklch(0.74 0.12 255); }
+.dark .kind-log { --kind-color: oklch(0.78 0.02 260); }
+.dark .kind-query_plan { --kind-color: oklch(0.75 0.14 162); }
+.dark .kind-profile { --kind-color: oklch(0.75 0.14 320); }
+.dark .kind-os_counter { --kind-color: oklch(0.75 0.1 205); }
+.dark .kind-packet { --kind-color: oklch(0.8 0.13 85); }
+
+.evidence-card {
+  border-left: 3px solid var(--kind-color, var(--border));
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.evidence-card:hover {
+  box-shadow: var(--graph-node-shadow);
+}
+
+.evidence-kind {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  padding: 0.18rem 0.45rem;
+  color: var(--kind-color, var(--foreground));
+  border: 1px solid color-mix(in oklab, var(--kind-color, var(--border)) 35%, transparent);
+  background: color-mix(in oklab, var(--kind-color, var(--border)) 9%, transparent);
+}
+
+.evidence-signal {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted-foreground);
+}
+
+/* ------------------------------------------------------------ incidents -- */
+
+.severity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  color: var(--severity-color, var(--foreground));
+  border: 1px solid color-mix(in oklab, var(--severity-color, var(--border)) 40%, transparent);
+  background: color-mix(in oklab, var(--severity-color, var(--border)) 10%, transparent);
+}
+
+.severity-sev1 { --severity-color: oklch(0.52 0.19 25); }
+.severity-sev2 { --severity-color: oklch(0.58 0.15 45); }
+.severity-sev3 { --severity-color: oklch(0.55 0.1 90); }
+.severity-sev4 { --severity-color: oklch(0.52 0.03 250); }
+
+.dark .severity-sev1 { --severity-color: oklch(0.72 0.17 25); }
+.dark .severity-sev2 { --severity-color: oklch(0.76 0.14 55); }
+.dark .severity-sev3 { --severity-color: oklch(0.8 0.1 95); }
+.dark .severity-sev4 { --severity-color: oklch(0.75 0.03 250); }
+
+.symptom-chip {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  transition: border-color 140ms ease, background 140ms ease, transform 140ms ease;
+}
+
+.symptom-chip:hover { border-color: var(--foreground); }
+.symptom-chip[aria-pressed="true"] {
+  border-color: var(--primary);
+  background: color-mix(in oklab, var(--primary) 8%, var(--card));
+}
+
+.symptom-chip-mark {
+  margin-top: 0.15rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  flex: none;
+  border: 1px solid var(--border);
+  background: var(--background);
+}
+
+.symptom-chip[aria-pressed="true"] .symptom-chip-mark {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+.cause-rank {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--muted-foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+.confidence-track {
+  height: 0.28rem;
+  background: color-mix(in oklab, var(--foreground) 10%, transparent);
+  overflow: hidden;
+}
+
+.confidence-fill { height: 100%; background: var(--severity-color, var(--primary)); }
+
+.incident-timeline {
+  border-left: 1px solid var(--border);
+  padding-left: 1.1rem;
+}
+
+.incident-timeline-dot {
+  position: absolute;
+  left: -1.45rem;
+  top: 0.45rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--border);
+}
+
+.incident-timeline-dot-observed { background: var(--primary); }
+
+.chain-node {
+  display: grid;
+  grid-template-columns: 0.55rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.6rem;
+  width: 12rem;
+  min-height: 3.5rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--layer-color, var(--border));
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--card) 96%, var(--layer-color, var(--card)));
+  padding: 0.6rem 0.7rem;
+  box-shadow: var(--graph-node-shadow);
+}
+
+.chain-node-cause {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--primary) 26%, transparent), var(--graph-node-shadow);
+}
+
+.chain-node-symptom {
+  width: 13rem;
+  border-left-width: 3px;
+  border-left-color: var(--severity-color, var(--graph-edge-warning));
+  border-style: dashed;
+  background: var(--card);
+}
+
+.graph-edge-observation path { stroke: var(--graph-edge-strong); stroke-width: 1.1; }
+.graph-edge-observation marker path { fill: var(--graph-edge-strong); }
+
+/* The cursor that trails a streaming answer, so a pause reads as "still writing". */
+.atlas-caret {
+  display: inline-block;
+  width: 0.45rem;
+  height: 1rem;
+  margin-left: 0.15rem;
+  vertical-align: text-bottom;
+  background: var(--primary);
+  animation: atlas-blink 1.1s steps(2, start) infinite;
+}
+
+@keyframes atlas-blink {
+  to { visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atlas-caret { animation: none; opacity: 0.6; }
+}
+
+/* ------------------------------------------------------------- learning -- */
+
+.mastery-unknown { --mastery-color: oklch(0.68 0.015 75); }
+.mastery-learning { --mastery-color: oklch(0.62 0.13 75); }
+.mastery-understood { --mastery-color: oklch(0.5 0.1 190); }
+.mastery-mastered { --mastery-color: oklch(0.47 0.12 155); }
+.mastery-needs-review { --mastery-color: oklch(0.55 0.18 28); }
+
+.dark .mastery-unknown { --mastery-color: oklch(0.6 0.02 260); }
+.dark .mastery-learning { --mastery-color: oklch(0.8 0.13 80); }
+.dark .mastery-understood { --mastery-color: oklch(0.75 0.1 195); }
+.dark .mastery-mastered { --mastery-color: oklch(0.74 0.14 158); }
+.dark .mastery-needs-review { --mastery-color: oklch(0.73 0.16 28); }
+
+.mastery-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: 9999px;
+  background: var(--mastery-color, var(--muted-foreground));
+}
+
+.mastery-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.45rem;
+  color: var(--mastery-color, var(--muted-foreground));
+  border: 1px solid color-mix(in oklab, var(--mastery-color, var(--border)) 38%, transparent);
+  background: color-mix(in oklab, var(--mastery-color, var(--border)) 9%, transparent);
+}
+
+.mastery-control {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.mastery-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  transition: border-color 140ms ease, color 140ms ease, background 140ms ease;
+}
+
+.mastery-option:hover { border-color: var(--foreground); color: var(--foreground); }
+.mastery-option:focus-visible { outline: 2px solid var(--ring); outline-offset: 1px; }
+
+.mastery-option[aria-pressed="true"] {
+  border-color: color-mix(in oklab, var(--mastery-color, var(--primary)) 55%, transparent);
+  background: color-mix(in oklab, var(--mastery-color, var(--primary)) 12%, var(--card));
+  color: var(--mastery-color, var(--foreground));
+}
+
+.progress-track {
+  height: 0.35rem;
+  width: 100%;
+  background: color-mix(in oklab, var(--foreground) 9%, transparent);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--layer-color, var(--primary));
+  transition: width 220ms ease;
+}
+
+.progress-fill-split { display: flex; height: 100%; width: 100%; }
+.progress-seg { height: 100%; background: var(--mastery-color, var(--muted-foreground)); }
+
+.learn-card {
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.learn-card:hover { border-color: color-mix(in oklab, var(--foreground) 35%, var(--border)); }
+
+.learn-step {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  gap: 0.75rem;
+  position: relative;
+  padding-bottom: 0.9rem;
+}
+
+.learn-step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 0.72rem;
+  top: 1.5rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.learn-step-num {
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1px solid var(--border);
+  background: var(--background);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--muted-foreground);
+}
+
+.atlas-node-mastery {
+  border-left-color: var(--mastery-color, var(--layer-color));
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--mastery-color, transparent) 24%, transparent),
+    var(--graph-node-shadow);
+}

@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1791394215504,
+      "tag": "0000_atlas_knowledge_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791395566940,
+      "tag": "0001_lock_knowledge_tables_read_only",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791396512095,
+      "tag": "0002_atlas_incidents",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791398487972,
+      "tag": "0003_atlas_research_proposals",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791400293294,
+      "tag": "0004_learning_progress",
+      "breakpoints": true
+    }
+  ]
+}
